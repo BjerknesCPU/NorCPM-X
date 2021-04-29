@@ -1,0 +1,13 @@
+$CASEROOT/SourceMods/src.cam
+/cluster/projects/nn9039k/people/ingo/NorCPM-X/model/norcpm-cf-system1/models/atm/cam/src/chemistry/pp_none
+$CODEROOT/atm/cam/src/chemistry/mozart
+$CODEROOT/atm/cam/src/physics/cam_oslo
+$CODEROOT/atm/cam/src/chemistry/bulk_aero
+$CODEROOT/atm/cam/src/chemistry/utils
+$CODEROOT/atm/cam/src/physics/cam
+$CODEROOT/atm/cam/src/dynamics/fv
+$CODEROOT/atm/cam/src/cpl_$comp
+$CODEROOT/atm/cam/src/cpl_share
+$CODEROOT/atm/cam/src/control
+$CODEROOT/atm/cam/src/utils
+$CODEROOT/atm/cam/src/utils/pilgrim

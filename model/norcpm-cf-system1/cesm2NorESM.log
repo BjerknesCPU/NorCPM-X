@@ -1,0 +1,134 @@
+---------------------------------------------------------------
+20130805: NorESM modifications of the CESM1_0_4 system:
+
+* Modified ./models/ice/cice/bld/build-namelist and 
+  models/ice/cice/bld/namelist_files/namelist_definition.xml to 
+  allow more flexible output specification for cice (Ingo Bethke). 
+
+* Added machine specific configurations for hexagon.bccs.uib.no
+  (hexagon) and vilje.hpc.ntnu.no (vilje) in the file
+  ./scripts/ccsm_utils/Machines/config_machines.xml (Mats Bentsen).
+
+* Added files Macros.hexagon*, env_machopts.hexagon*, mkbatch.hexagon*,
+  Macros.vilje, env_machopts.vilje, mkbatch.vilje, under
+  ./scripts/ccsm_utils/Machines with machine dependent settings for
+  hexagon and vilje (Mats Bentsen).
+
+* Added tasks/thread setup for hexagon and vilje in
+  ./scripts/ccsm_utils/Machines/config_pes.xml (Mats Bentsen).
+
+* In order to enable use of intel compiler on hexagon and vilje the
+  following files were modified:
+  ./models/utils/pio/configure
+  ./models/utils/pio/aclocal.m4
+  ./models/utils/mct/configure.ac
+  ./models/utils/mct/configure
+  ./models/utils/mct/aclocal.m4
+
+* Modified ./scripts/create_newcase so that subversion information about
+  the CCSM root directory is recorded in the case directory (Mats
+  Bentsen).
+
+* Created the directory ./scripts/README.NorESM containing NorESM
+  specific documentation and modified ./scripts/create_newcase to copy
+  the documentation to the case directory (Jens Debernard).
+
+* Modified ./scripts/ccsm_utils/Case.template/config_definition.xml and
+  ./scripts/create_newcase and added
+  ./scripts/ccsm_utils/Tools/noresm_l_archive.bash so that a NorESM
+  specific long term archiving script is generated (Mats Bentsen).
+
+* In ./scripts/ccsm_utils/Tools/ccsm_buildexe.csh the run directory
+  is set to use striping, that is to use all Object Storage Targets
+  (OSTs), when the system is configured on hexagon (Mats
+  Bentsen).
+
+* Modified ./scripts/ccsm_utils/Case.template/config_definition.xml and
+  generate_batch.csh and ccsm_postrun.csh under
+  ./scripts/ccsm_utils/Tools for restart functionality without
+  resubmission (Mats Bentsen).
+
+* Created the directory ./models/ocn/micom containing the ocean
+  component MICOM (Mats Bentsen).
+
+* Modified config_definition.xml and ConfigCase.pm under
+  ./scripts/ccsm_utils/Case.template so that MICOM is listed as a
+  possible ocean component and MICOM tracer modules can be enabled in
+  component sets (Mats Bentsen).
+
+* Added component sets specific for NorESM in
+  ./scripts/ccsm_utils/Case.template/config_compsets.xml. The name of
+  the NorESM component sets starts with "N".  Modified
+  ./scripts/ccsm_utils/Machines/config_pes.xml so it contains
+  task/thread setup for the new component sets on hexagon.bccs.uib.no
+  (Mats Bentsen).
+
+* Modified ./scripts/ccsm_utils/Machines/Macros.hexagon so it contains
+  compiler options for MICOM (Mats Bentsen).
+
+* Modified ./scripts/create_newcase to enable handling of template files
+  for MICOM (Mats Bentsen).
+
+* Modified ./scripts/ccsm_utils/Tools/configure so that MICOM can be
+  configured for the number of tasks that are defined in the case
+  specific env_mach_pes (Mats Bentsen).
+
+* Modified ./scripts/ccsm_utils/Tools/st_archive.sh so that MICOM
+  restart and history files will be archived. Modified some file
+  operations to by executed on the compute nodes when the system is
+  configured on hexagon.bccs.uib.no (Mats Bentsen).
+
+* Modified ./models/ice/cice/bld/build-namelist and
+  namelist_definition.xml and namelist_defaults_cice.xml in
+  ./models/ice/cice/bld/namelist_files to enable setting of an CICE
+  namelist parameter that determines if fresh water and salt fluxes from
+  frazil ice formation should be included (Mats Bentsen).
+
+* In order to include the CORE2 interannual forcing paths were modified
+  in ./models/atm/datm/bld/datm.template.streams.xml (Mats Bentsen).
+
+* Modified ./models/lnd/clm/bld/build-namelist to allow grid dependent
+  namelist values to be specified in use-cases (Mats Bentsen).
+
+* Under ./models/ice/cice/src/source, ice_diagnostics.F90 were modified
+  to add diagnostics of salt and ice_history.F90 and
+  ice_history_fields.F90 were modified to add history file definitions
+  (Jens Debernard).
+
+* Created the directory ./models/atm/cam/src/physics/cam_oslo containing
+  CAM-Oslo specific routines (Oyvind Seland).
+
+* Modified ./models/atm/cam/bld/configure and
+  ./models/atm/cam/bld/config_files/definition.xml and added file
+  ./models/atm/cam/bld/config_files/defaults_aer1850online.xml to
+  allow for CAM-Oslo configuration (Oyvind Seland).
+
+* Added NorESM specific CAM namelist files under
+  ./models/atm/cam/bld/namelist_files/use_cases (Mats Bentsen)
+
+* Added NorESM specific CLM namelist files under
+  ./models/lnd/clm/bld/namelist_files/use_cases (Mats Bentsen)
+
+* In order to support the tripolar ocean/sea-ice grid tnx1v1 the
+  following files were modified:
+  ./models/atm/datm/bld/datm.cpl7.template,
+  ./models/ice/cice/bld/cice.cpl7.template,
+  ./models/ice/cice/bld/cice_decomp.xml,
+  ./models/ice/cice/bld/namelist_files/namelist_defaults_cice.xml,
+  ./models/ice/dice/bld/dice.cpl7.template,
+  ./models/lnd/clm/bld/namelist_files/checkdatmfiles.ncl,
+  ./models/lnd/clm/bld/namelist_files/namelist_defaults_clm.xml,
+  ./models/lnd/clm/bld/namelist_files/namelist_defaults_datm.xml,
+  ./models/lnd/clm/bld/namelist_files/namelist_definition.xml,
+  ./models/lnd/dlnd/bld/dlnd.cpl7.template,
+  ./scripts/ccsm_utils/Case.template/config_grid.xml, and
+  ./scripts/ccsm_utils/Machines/config_pes.xml.
+
+* TURB_FLUX_SCHEME flag is added to shr_flux_mod.F90 and following files
+  are modified (Alok)
+  ./models/drv/driver/ccsm_comp_mod.F90
+  ./models/drv/shr_esmf/esmfshr_infodata_mod.F90
+  ./models/drv/shr/seq_infodata_mod.F90
+  ./models/drv/bld/cpl.template
+  ./models/lnd/clm/bld/namelist_files/namelist_definition.xml
+  

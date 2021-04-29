@@ -1,0 +1,5 @@
+ &cam_inparm
+ dtime          =  1800
+ cam_branch_file= '/cluster/work/users/ingo/noresm/NorESM1-ME_historicalExt_noAssim_19600101/NorESM1-ME_historicalExt_noAssim_19600101_mem31/run/NorESM1-ME_historicalExt_noAssim_mem01.cam2.r.1960-01-01-00000.nc'
+ co2vmr         = 379.000e-6
+/

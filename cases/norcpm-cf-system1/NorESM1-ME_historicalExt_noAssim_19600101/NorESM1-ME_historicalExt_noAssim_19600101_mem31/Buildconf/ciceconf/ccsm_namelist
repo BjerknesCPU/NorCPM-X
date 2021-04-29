@@ -1,0 +1,6 @@
+ &ice_nml
+ ice_ic = 'NorESM1-ME_historicalExt_noAssim_mem01.cice.r.1960-01-01-00000.nc'
+ /
+ &domain_nml
+ distribution_type = 'DECOMPTYPE'
+ / 

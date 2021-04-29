@@ -1,0 +1,11 @@
+fpftdyn = $DIN_LOC_ROOT/lnd/clm2/surfdata/surfdata.pftdyn_1.9x2.5_rcp8.5_simyr1850-2100_c100322.nc
+fpftcon = $DIN_LOC_ROOT/lnd/clm2/pftdata/pft-physiology.c110425.nc
+fsnowaging = $DIN_LOC_ROOT/lnd/clm2/snicardata/snicar_drdt_bst_fit_60_c070416.nc
+fsnowoptics = $DIN_LOC_ROOT/lnd/clm2/snicardata/snicar_optics_5bnd_c090915.nc
+nrevsn = NorESM1-ME_historicalExt_noAssim_mem01.clm2.r.1960-01-01-00000.nc
+fsurdat = $DIN_LOC_ROOT/lnd/clm2/surfdata/surfdata_1.9x2.5_simyr1850_c091108.nc
+fatmgrid = $DIN_LOC_ROOT/lnd/clm2/griddata/griddata_1.9x2.5_060404.nc
+fatmlndfrc = $DIN_LOC_ROOT/lnd/clm2/griddata/fracdata_1.9x2.5_gx1v6_c090206.nc
+frivinp_rtm = $DIN_LOC_ROOT/lnd/clm2/rtmdata/rdirc_0.5x0.5_simyr2000_c101124.nc
+finidat = $DIN_LOC_ROOT/ccsm4_init/b40.1850.track1.2deg.003/year_401/b40.1850.track1.2deg.003.clm2.r.0401-01-01-00000.nc
+stream_fldfilename_ndep = $DIN_LOC_ROOT/lnd/clm2/ndepdata/fndep_clm_rcp8.5_simyr1849-2106_1.9x2.5_c100428.nc
