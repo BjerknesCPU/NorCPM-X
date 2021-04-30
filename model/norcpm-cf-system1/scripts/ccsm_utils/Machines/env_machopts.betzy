@@ -25,6 +25,8 @@ module load CMake/3.12.1
 # Runtime environment variables
 #-------------------------------------------------------------------------------
 
+setenv MKL_DEBUG_CPU_TYPE 5
+
 setenv I_MPI_COMPATIBILITY 3
 
 setenv MPICH_MAX_SHORT_MSG_SIZE 960000 # default is 128000 bytes

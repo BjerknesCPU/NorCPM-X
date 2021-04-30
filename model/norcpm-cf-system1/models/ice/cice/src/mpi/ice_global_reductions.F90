@@ -24,12 +24,13 @@
    use ice_blocks
    use ice_distribution
    use ice_domain_size
+   use mpi
 
    implicit none
    private
    save
 
-   include 'mpif.h'
+!  include 'mpif.h'
 
 ! !PUBLIC MEMBER FUNCTIONS:
 

@@ -10,7 +10,6 @@ for START_MONTH in $START_MONTHS
 do
 for START_DAY in $START_DAYS
 do
-MEMBERN=`expr $MEMBER1 + $ENSSIZE - 1`
 for MEMBER in `seq -w $MEMBER1 $MEMBERN`
 do
 

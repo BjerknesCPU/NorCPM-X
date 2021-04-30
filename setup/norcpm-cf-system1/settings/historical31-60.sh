@@ -6,20 +6,20 @@
 : ${REST_PREFIX:=NorESM1-ME_historicalExt_noAssim_mem} 
 : ${REST_PATH_REMOTE:=}
 : ${REST_PATH_LOCAL:=$INPUTDATA/ccsm4_init}
-: ${START_YEARS:=1960} # multiple start dates only for prediction
+: ${START_YEARS:=1970} # multiple start dates only for prediction
 : ${START_MONTHS:=01} # multiple start dates only for prediction
 : ${START_DAYS:=01} # multiple start dates only for prediction
-: ${REF_YEARS:=1960} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_YEARS:=1970} # multiple reference dates only for RUN_TYPE=hybrid
 : ${REF_MONTHS:=01} # multiple reference dates only for RUN_TYPE=hybrid
 : ${REF_DAYS:=01} # multiple reference dates only for RUN_TYPE=hybrid
 : ${RUN_TYPE:=branch} # use "branch" if unspecified 
 : ${REF_ENSEMBLE:=1} # set to 1 if ensemble of perturbed intial conditions with same start date, only for RUN_TYPE=hybrid
 : ${REF_MEMBER1:=01}
-: ${ENSSIZE:=2} # number of members
+: ${ENSSIZE:=30} # number of members
 : ${MEMBER1:=31} # first member  
-: ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
-: ${STOP_N:=1} # run continuesly for this length 
-: ${RESTART:=59} # restart this many times (set to 5 years here) 
+: ${STOP_OPTION:=nyears} # units for run length specification STOP_N 
+: ${STOP_N:=10} # run continuesly for this length 
+: ${RESTART:=0} # restart this many times (set to 5 years here) 
 : ${WALLTIME:='96:00:00'}  
 
 # general settings 
@@ -27,7 +27,7 @@
 : ${CASESROOT:=$SETUPROOT/../../cases/$VERSION}
 : ${CCSMROOT:=$SETUPROOT/../../model/$VERSION}
 : ${COMPSET:=N20TREXTAERCN}
-: ${PECOUNT:=S} # T=32, S=64, M=96, L=128, X1=502
+: ${PECOUNT:=L} # T=32, S=64, M=96, L=128, X1=502
 : ${RES:=f19_g16}
 : ${ACCOUNT:=nn9039k}
 : ${ASK_BEFORE_REMOVE:=0} # 1=will ask before removing existing cases 
@@ -36,10 +36,12 @@
 : ${VERBOSE:=1} # set -vx option in all scripts
 
 # derived settings
+: ${SCRIPTSROOT:=$CCSMROOT/scripts}
 : ${START_YEAR1:=`echo $START_YEARS | cut -d" " -f1`}
 : ${START_MONTH1:=`echo $START_MONTHS | cut -d" " -f1`}
 : ${START_DAY1:=`echo $START_DAYS | cut -d" " -f1`}
 : ${REF_YEAR1:=`echo $REF_YEARS | cut -d" " -f1`}
 : ${REF_MONTH1:=`echo $REF_MONTHS | cut -d" " -f1`}
 : ${REF_DAY1:=`echo $REF_DAYS | cut -d" " -f1`}
-: ${SCRIPTSROOT:=$CCSMROOT/scripts}
+: ${MEMBERN:=`expr $MEMBER1 + $ENSSIZE - 1`}
+: ${REF_MEMBERN:=`expr $REF_MEMBER1 + $ENSSIZE - 1`}

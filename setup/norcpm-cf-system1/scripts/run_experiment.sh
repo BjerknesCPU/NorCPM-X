@@ -27,7 +27,7 @@ do
 
     echo +++ CHECK IF SIMULATION SHOULD BE CONTINUED
     ENSEMBLE_PREFIX=${CASE_PREFIX}_${START_YEAR}${START_MONTH}${START_DAY}
-    CASE1=${ENSEMBLE_PREFIX}_${MEMBERTAG}01
+    CASE1=${ENSEMBLE_PREFIX}_${MEMBERTAG}${MEMBER1}
     if [ $CASE1 == `head -1 $WORK/noresm/$ENSEMBLE_PREFIX/$CASE1/run/rpointer.atm | cut -d. -f1` ]
     then
       CONTINUE_RUN=TRUE
@@ -38,14 +38,14 @@ do
 
 
     echo +++ SET CONTINUE_RUN, STOP_OPTION AND STOP_N
-    for MEMBER in `seq -w 01 $ENSSIZE`
+    for MEMBER in `seq -w $MEMBER1 $MEMBERN`
     do 
       CASE=${ENSEMBLE_PREFIX}_${MEMBERTAG}$MEMBER
-      cd $CASESROOT/${ENSEMBLE_PREFIX}/${CASE}
+      cd $CASESROOT/$ENSEMBLE_PREFIX/$CASE
       ./xmlchange -file env_run.xml -id STOP_OPTION -val $STOP_OPTION 
       ./xmlchange -file env_run.xml -id STOP_N -val $STOP_N 
       ./xmlchange -file env_run.xml -id CONTINUE_RUN -val $CONTINUE_RUN 
-      cd $WORK/noresm/${ENSEMBLE_PREFIX}/${CASE}/run/
+      cd $WORK/noresm/$ENSEMBLE_PREFIX/$CASE/run/
       sed -i "s/stop_option    =.*/stop_option    ='${STOP_OPTION}'/" drv_in 
       sed -i "s/restart_option =.*/restart_option ='${STOP_OPTION}'/" drv_in 
       sed -i "s/stop_n         =.*/stop_n         =${STOP_N}/" drv_in 
@@ -87,7 +87,7 @@ do
       echo ++++ SET RFACTOR TO $RFACTOR
 
       echo ++++ LINK FORECASTS
-      for MEMBER in `seq -w 01 $ENSSIZE`
+      for MEMBER in `seq -w $MEMBER1 $MEMBERN`
       do
         CASE=${ENSEMBLE_PREFIX}_${MEMBERTAG}$MEMBER
         ln -sf $WORK/noresm/${ENSEMBLE_PREFIX}/${CASE}/run/${CASE}.micom.r.${yr}-${mm}-15-00000.nc forecast0${MEMBER}.nc
@@ -168,7 +168,7 @@ do
       if [ $ENKF_VERSION -eq 2 ]
       then
         echo ++++ FIXENKF_ICE - POST-ASSIMILATION CORRECTION OF SEA ICE STATE
-        for MEMBER in `seq -w 01 $ENSSIZE`
+        for MEMBER in `seq -w $MEMBER1 $MEMBERN`
         do
           time ./fixenkf_cice $MEMBER & # process members in parallel on first node
         done
@@ -199,13 +199,14 @@ do
     SKIPASSIM=0
 
     echo +++ LAUNCH FIRST MEMBER - WILL RUN THE ENTIRE ENSEMBLE
-    CASE=${ENSEMBLE_PREFIX}_${MEMBERTAG}01 
+    CASE=${ENSEMBLE_PREFIX}_${MEMBERTAG}$MEMBER1 
     cd $CASESROOT/${ENSEMBLE_PREFIX}/${CASE} 
     ./${CASE}.${MACH}.run
 
     echo +++ SHORT TERM ARCHIVING OF REMAINING MEMBERS 
     N_PARALLEL_STARCHIVE=0 
-    for MEMBER in `seq -w 02 $ENSSIZE`
+    MEMBER2=`printf %02d $(($MEMBER1+1))`
+    for MEMBER in `seq -w $MEMBER2 $MEMBERN`
     do 
       export MACH
       export CASE=${CASE_PREFIX}_${START_YEAR}${START_MONTH}${START_DAY}_${MEMBERTAG}$MEMBER
