@@ -843,6 +843,7 @@
     <PES_LEVEL>3rcm</PES_LEVEL>
 </pes>
 
+<!-------------------------------------------------------------------------------
 <pes grid_match="1.9x2.5_gx1" compset_match="N1850AERCN|N20TREXTAERCN" mach_match="hexagon|vilje|fram|betzy" pecount="S">
     <NTASKS_ATM> 32</NTASKS_ATM> <NTHRDS_ATM>1</NTHRDS_ATM> <ROOTPE_ATM>  0</ROOTPE_ATM>
     <NTASKS_LND> 11</NTASKS_LND> <NTHRDS_LND>1</NTHRDS_LND> <ROOTPE_LND> 32</ROOTPE_LND>
@@ -850,6 +851,17 @@
     <NTASKS_CPL> 43</NTASKS_CPL> <NTHRDS_CPL>1</NTHRDS_CPL> <ROOTPE_CPL>  0</ROOTPE_CPL>
     <NTASKS_GLC> 43</NTASKS_GLC> <NTHRDS_GLC>1</NTHRDS_GLC> <ROOTPE_GLC>  0</ROOTPE_GLC>
     <NTASKS_OCN> 21</NTASKS_OCN> <NTHRDS_OCN>1</NTHRDS_OCN> <ROOTPE_OCN> 43</ROOTPE_OCN>
+    <PES_LEVEL>3rcm</PES_LEVEL>
+</pes>
+ ------------------------------------------------------------------------------->
+
+<pes grid_match="1.9x2.5_gx1" compset_match="N1850AERCN|N20TREXTAERCN" mach_match="betzy" pecount="S">
+    <NTASKS_ATM> 64</NTASKS_ATM> <NTHRDS_ATM>1</NTHRDS_ATM> <ROOTPE_ATM>  0</ROOTPE_ATM>
+    <NTASKS_LND> 14</NTASKS_LND> <NTHRDS_LND>1</NTHRDS_LND> <ROOTPE_LND> 50</ROOTPE_LND>
+    <NTASKS_ICE> 50</NTASKS_ICE> <NTHRDS_ICE>1</NTHRDS_ICE> <ROOTPE_ICE>  0</ROOTPE_ICE>
+    <NTASKS_CPL> 64</NTASKS_CPL> <NTHRDS_CPL>1</NTHRDS_CPL> <ROOTPE_CPL>  0</ROOTPE_CPL>
+    <NTASKS_GLC> 64</NTASKS_GLC> <NTHRDS_GLC>1</NTHRDS_GLC> <ROOTPE_GLC>  0</ROOTPE_GLC>
+    <NTASKS_OCN> 64</NTASKS_OCN> <NTHRDS_OCN>1</NTHRDS_OCN> <ROOTPE_OCN>  0</ROOTPE_OCN>
     <PES_LEVEL>3rcm</PES_LEVEL>
 </pes>
 
@@ -916,6 +928,18 @@
     <NTASKS_OCN> 48</NTASKS_OCN> <NTHRDS_OCN>1</NTHRDS_OCN> <ROOTPE_OCN> 80</ROOTPE_OCN>
     <PES_LEVEL>3rcm</PES_LEVEL>
 </pes>
+
+<!-------------------------------------------------------------------------------
+<pes grid_match="1.9x2.5_gx1" compset_match="N1850AERCN|N20TREXTAERCN" mach_match="betzy" pecount="L">
+    <NTASKS_ATM> 64</NTASKS_ATM> <NTHRDS_ATM>1</NTHRDS_ATM> <ROOTPE_ATM>  0</ROOTPE_ATM>
+    <NTASKS_LND> 14</NTASKS_LND> <NTHRDS_LND>1</NTHRDS_LND> <ROOTPE_LND> 50</ROOTPE_LND>
+    <NTASKS_ICE> 50</NTASKS_ICE> <NTHRDS_ICE>1</NTHRDS_ICE> <ROOTPE_ICE>  0</ROOTPE_ICE>
+    <NTASKS_CPL> 64</NTASKS_CPL> <NTHRDS_CPL>1</NTHRDS_CPL> <ROOTPE_CPL>  0</ROOTPE_CPL>
+    <NTASKS_GLC> 64</NTASKS_GLC> <NTHRDS_GLC>1</NTHRDS_GLC> <ROOTPE_GLC>  0</ROOTPE_GLC>
+    <NTASKS_OCN> 64</NTASKS_OCN> <NTHRDS_OCN>1</NTHRDS_OCN> <ROOTPE_OCN> 64</ROOTPE_OCN>
+    <PES_LEVEL>3rcm</PES_LEVEL>
+</pes>
+ ------------------------------------------------------------------------------->
 
 <pes grid_match="1.9x2.5_gx1" compset_match="N1850AERCNOC|N20TREXTAERCNOC" mach_match="betzy" pecount="M">
     <NTASKS_ATM> 64</NTASKS_ATM> <NTHRDS_ATM>1</NTHRDS_ATM> <ROOTPE_ATM>  0</ROOTPE_ATM>

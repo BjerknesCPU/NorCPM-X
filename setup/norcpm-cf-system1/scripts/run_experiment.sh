@@ -26,6 +26,14 @@ do
   do 
 
     echo +++ CHECK IF SIMULATION SHOULD BE CONTINUED
+    if (( $NO_START_DATE ))
+    then
+      ENSEMBLE_PREFIX=${CASE_PREFIX}
+      ENSEMBLE_PREFIX1=${CASE_PREFIX}
+    else
+      ENSEMBLE_PREFIX=${CASE_PREFIX}_${START_YEAR}${START_MONTH}${START_DAY}
+      ENSEMBLE_PREFIX1=${CASE_PREFIX}_${START_YEAR1}${START_MONTH1}${START_DAY1}
+    fi
     ENSEMBLE_PREFIX=${CASE_PREFIX}_${START_YEAR}${START_MONTH}${START_DAY}
     CASE1=${ENSEMBLE_PREFIX}_${MEMBERTAG}${MEMBER1}
     if [ $CASE1 == `head -1 $WORK/noresm/$ENSEMBLE_PREFIX/$CASE1/run/rpointer.atm | cut -d. -f1` ]
@@ -105,7 +113,7 @@ do
         REF_PERIOD=${REF_PERIODLIST[$iobs]}
         COMB_ASSIM=${COMBINE_ASSIM[$iobs]}    #sequential/joint observation assim 
         ln -sf ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc . || { echo "${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc missing, we quit" ; exit 1 ; }
-        ln -sf ${INPUTDATA}/enkf/${RES}/CMIP6/Free-average${mm}-${REF_PERIOD}.nc mean_mod.nc || { echo "Error ${INPUTDATA}/enkf/${RES}/Free-average${mm}-${REF_PERIOD}.nc missing, we quit" ; exit 1 ; }
+        ln -sf ${INPUTDATA}/enkf/${RES}/${VERSION}/Free-average${mm}-${REF_PERIOD}.nc mean_mod.nc || { echo "Error ${INPUTDATA}/enkf/${RES}/Free-average${mm}-${REF_PERIOD}.nc missing, we quit" ; exit 1 ; }
         if [ -f ${INPUTDATA}/enkf/${RES}/${PRODUCER}/${RES}_${OBSTYPE}_obs_unc_anom.nc ]
         then
           ln -sf ${INPUTDATA}/enkf/${RES}/${PRODUCER}/${RES}_${OBSTYPE}_obs_unc_anom.nc  obs_unc_${OBSTYPE}.nc

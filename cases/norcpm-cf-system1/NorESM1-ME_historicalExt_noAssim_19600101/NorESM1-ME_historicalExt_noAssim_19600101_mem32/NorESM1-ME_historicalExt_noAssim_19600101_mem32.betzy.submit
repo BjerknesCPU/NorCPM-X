@@ -1,9 +1,0 @@
-#! /bin/csh -f
-
-./check_case || echo "check_case failed" && exit -99
-
-sbatch NorESM1-ME_historicalExt_noAssim_19600101_mem32.betzy.run
-
-set sdate = `date +"%Y-%m-%d %H:%M:%S"`
-echo "run submitted $sdate" >>& CaseStatus
-

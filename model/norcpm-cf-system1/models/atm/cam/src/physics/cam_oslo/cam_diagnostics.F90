@@ -831,6 +831,7 @@ subroutine diag_init
    call addfld ('TAUX    ','N/m2    ',1,    'A','Zonal surface stress',phys_decomp)
    call addfld ('TAUY    ','N/m2    ',1,    'A','Meridional surface stress',phys_decomp)
    call addfld ('TREFHT  ','K       ',1,    'A','Reference height temperature',phys_decomp)
+   call addfld ('TDEW    ','K       ',1,    'A','Reference height dew point temperature',phys_decomp)
    call addfld ('TREFHTMN','K       ',1,    'M','Minimum reference height temperature over output period',phys_decomp)
    call addfld ('TREFHTMX','K       ',1,    'X','Maximum reference height temperature over output period',phys_decomp)
    call addfld ('QREFHT  ','kg/kg   ',1,    'A','Reference height humidity',phys_decomp)
@@ -866,6 +867,7 @@ subroutine diag_init
    call add_default ('TAUX    ', 1, ' ')
    call add_default ('TAUY    ', 1, ' ')
    call add_default ('TREFHT  ', 1, ' ')
+   call add_default ('TDEW    ', 1, ' ')
    call add_default ('TREFMNAV', 1, ' ') 
    call add_default ('TREFMXAV', 1, ' ')  
    call add_default ('LANDFRAC', 1, ' ')
@@ -1732,6 +1734,14 @@ subroutine diag_surf (cam_in, cam_out, ps, trefmxav, trefmnav )
 
       
     call outfld('RHREFHT',   ftem,      pcols, lchnk)
+!
+! Calculate and output reference height dew point temperature (TDEW)
+! using the Magnus formula with coefficients b = 17.67, c = 243.5 (Bolton 1980,
+! Monthly Waether Review) 
+       ftem(:ncol) = log(ftem(:ncol)/100._r8) + 17.67_r8 *  &
+         (cam_in%tref(:ncol) - 273.15_r8) / (cam_in%tref(:ncol) - 29.65_r8) 
+       ftem(:ncol) = 243.5_r8 * ftem(:ncol) / (17.67_r8 - ftem(:ncol)) + 273.15_r8
+    call outfld('TDEW',   ftem,      pcols, lchnk)
 
 
 #if (defined BFB_CAM_SCAM_IOP )

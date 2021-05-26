@@ -1,1 +1,0 @@
-create_newcase -case /cluster/projects/nn9039k/people/ingo/NorCPM-X/setup/norcpm-cf-system1/../../cases/norcpm-cf-system1/NorESM1-ME_historicalExt_noAssim_19600101/NorESM1-ME_historicalExt_noAssim_19600101_mem01 -compset N20TREXTAERCN -res f19_g16 -mach betzy -pecount S

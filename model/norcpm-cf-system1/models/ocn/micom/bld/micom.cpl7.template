@@ -1330,7 +1330,8 @@ if (\$OCN_GRID == tnx2v1 || \$OCN_GRID == tnx1v1 || \$OCN_GRID == tnx1.5v1 || \$
   set cpp_ocn = "\$cpp_ocn -DARCTIC"
 endif
 if (\$OCN_GRID == gx1v5 || \$OCN_GRID == gx1v6 || \$OCN_GRID == tnx1v1 || \$OCN_GRID == tnx0.25v1) then
-  set cpp_ocn = "\$cpp_ocn -DLEVITUS2X"
+  #set cpp_ocn = "\$cpp_ocn -DLEVITUS2X"
+  set cpp_ocn = "\$cpp_ocn "
 endif
 if (\$OCN_GRID == s1v1) then
   set cpp_ocn = "\$cpp_ocn -DNUDGE_TS"
