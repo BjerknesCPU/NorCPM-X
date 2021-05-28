@@ -50,8 +50,14 @@ do
     do 
       CASE=${ENSEMBLE_PREFIX}_${MEMBERTAG}$MEMBER
       cd $CASESROOT/$ENSEMBLE_PREFIX/$CASE
-      ./xmlchange -file env_run.xml -id STOP_OPTION -val $STOP_OPTION 
-      ./xmlchange -file env_run.xml -id STOP_N -val $STOP_N 
+      if [[ $STOP_N_FORECAST && $RESTART_COUNT -eq $RESTART ]]
+      then 
+        ./xmlchange -file env_run.xml -id STOP_OPTION -val $STOP_OPTION_FORECAST
+        ./xmlchange -file env_run.xml -id STOP_N -val $STOP_N_FORECAST
+      else
+        ./xmlchange -file env_run.xml -id STOP_OPTION -val $STOP_OPTION 
+        ./xmlchange -file env_run.xml -id STOP_N -val $STOP_N
+      fi
       ./xmlchange -file env_run.xml -id CONTINUE_RUN -val $CONTINUE_RUN 
       cd $WORK/noresm/$ENSEMBLE_PREFIX/$CASE/run/
       sed -i "s/stop_option    =.*/stop_option    ='${STOP_OPTION}'/" drv_in 
@@ -79,16 +85,19 @@ do
     if [[ $yr -eq $START_YEAR1 && $mm -eq $START_MONTH1 ]]
     then 
       SKIPASSIM=1
-    fi 
+    elif [[ $STOP_N_FORECAST && $RESTART_COUNT -eq $RESTART ]]
+    then 
+      SKIPASSIM=1
+    fi
     if [[ $ENKF_VERSION && $SKIPASSIM -eq 0 ]]
     then
       echo +++ PERFORM ASSIMILATION UPDATE `date`
       cd $ANALYSISROOT
 
       #every second month we reduced rfactor by 1
-      nmonth=$(( (y - $START_YEAR1) * 12 + m - $START_MONTH1 )) 
+      nmonth=$(( (y - $START_YEAR1) * 12 + m - ${START_MONTH1#0} )) 
       RFACTOR=$(( $RFACTOR_START - $nmonth / 2 ))
-      if [ $RFACTOR -lt 1 ] 
+      if [[ $RFACTOR -lt 1 || $STOP_N_FORECAST ]]
       then 
         RFACTOR=1
       fi  
@@ -106,12 +115,24 @@ do
 
       ENKF_CNT=0                           # Counter of EnKF sequential call
       echo ++++ PREPARE OBSERVATIONS AND DO SEQUENTIAL/CONCURRENT ASSIMILATION
-      for iobs in ${!OBSLIST[*]}
+      if [[ $STOP_N_FORECAST && $OBSLIST_PREFORECAST && $(($RESTART_COUNT+1)) -eq $RESTART ]]
+      then 
+        OBSLIST1=$OBSLIST_PREFORECAST
+        PRODUCERLIST1=$PRODUCERLIST_PREFORECAST
+        REF_PERIODLIST1=$REF_PERIODLIST_PREFORECAST
+        COMBINE_ASSIM1=$COMBINE_ASSIM_PREFORECAST
+      else
+        OBSLIST1=$OBSLIST
+        PRODUCERLIST1=$PRODUCERLIST
+        REF_PERIODLIST1=$REF_PERIODLIST
+        COMBINE_ASSIM1=$COMBINE_ASSIM
+      fi 
+      for iobs in ${!OBSLIST1[*]}
       do
-        OBSTYPE=${OBSLIST[$iobs]}
-        PRODUCER=${PRODUCERLIST[$iobs]}
-        REF_PERIOD=${REF_PERIODLIST[$iobs]}
-        COMB_ASSIM=${COMBINE_ASSIM[$iobs]}    #sequential/joint observation assim 
+        OBSTYPE=${OBSLIST1[$iobs]}
+        PRODUCER=${PRODUCERLIST1[$iobs]}
+        REF_PERIOD=${REF_PERIODLIST1[$iobs]}
+        COMB_ASSIM=${COMBINE_ASSIM1[$iobs]}    #sequential/joint observation assim 
         if [ -e ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc ]
         then  
           ln -sf ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc .
@@ -121,7 +142,6 @@ do
         else
           echo "${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc missing, we quit" ; exit 1
         fi
-        if [ ! -e ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc ]
         ln -sf ${INPUTDATA}/enkf/${RES}/${VERSION}/Free-average${mm}-${REF_PERIOD}.nc mean_mod.nc || { echo "Error ${INPUTDATA}/enkf/${RES}/Free-average${mm}-${REF_PERIOD}.nc missing, we quit" ; exit 1 ; }
         if [ -f ${INPUTDATA}/enkf/${RES}/${PRODUCER}/${RES}_${OBSTYPE}_obs_unc_anom.nc ]
         then

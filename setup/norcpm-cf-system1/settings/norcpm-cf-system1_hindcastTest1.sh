@@ -3,18 +3,18 @@
 
 # EXPERIMENT DESCRIPTION
 #
-# test diagnostic output configuration for analysis and prediction  
+# test hindcast 
 
 # experiment settings
 : ${CASE_PREFIX:=`basename $1 .sh`} # case prefix, not including _YYYYMMDD_XX suffix ; extracted from name of this file
-: ${REST_PREFIX:=/cluster/work/users/ingo/archive/norcpm-cf-system1_assim_mem} 
+: ${REST_PREFIX:=norcpm-cf-system1_assim_19811115_mem} 
 : ${REST_PATH_REMOTE:=}
 : ${REST_PATH_LOCAL:=/cluster/work/users/ingo/archive/norcpm-cf-system1_assim_19811115}
-: ${START_YEARS:=1981} # multiple start dates only for prediction
-: ${START_MONTHS:=11} # multiple start dates only for prediction
+: ${START_YEARS:=1992} # multiple start dates only for prediction
+: ${START_MONTHS:=09} # multiple start dates only for prediction
 : ${START_DAYS:=15} # multiple start dates only for prediction
-: ${REF_YEARS:=1981} # multiple reference dates only for RUN_TYPE=hybrid
-: ${REF_MONTHS:=11} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_YEARS:=1992} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_MONTHS:=09} # multiple reference dates only for RUN_TYPE=hybrid
 : ${REF_DAYS:=15} # multiple reference dates only for RUN_TYPE=hybrid
 : ${REF_ENSEMBLE:=1} # set to 1 if ensemble of perturbed intial conditions with same start date, only for RUN_TYPE=hybrid
 : ${REF_MEMBER1:=01}
@@ -24,7 +24,7 @@
 : ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
 : ${RESTART:=2} # restart this many times (perform assimilation twice before forecast) 
-: ${WALLTIME:='00:20:00'}  
+: ${WALLTIME:='24:00:00'}  
 : ${STOP_OPTION_FORECAST:=ndays} # units for run length specification STOP_N 
 : ${STOP_N_FORECAST:=150} # run continuesly for this length 
 
