@@ -1,6 +1,10 @@
 #!/bin/sh -e
 
-SETUPROOT=`readlink -f \`dirname $0\`` 
+SETUPROOT=`readlink -f \`dirname $0\``
+if [[ `basename $SETUPROOT` == "scripts" ]]
+then
+  SETUPROOT=`dirname $SETUPROOT`
+fi
 . $SETUPROOT/scripts/source_settings.sh $*
 
 echo + BEGIN LOOP OVER START DATES AND MEMBERS 

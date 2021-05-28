@@ -1,6 +1,11 @@
 # EXPERIMENT DEFAULT SETTINGS 
 # DO NOT CHANGE, USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
+# EXPERIMENT DESCRIPTION
+#
+# CMIP6 i2 reanalysis with freshwater compensation for DA-related sea ice changes   
+# applied to mixed layer
+
 # experiment settings
 : ${CASE_PREFIX:=`basename $1 .sh`} # case prefix, not including _YYYYMMDD_XX suffix ; extracted from name of this file
 : ${REST_PREFIX:=noresm1-cmip6_historical_19500101_mem} 
@@ -20,7 +25,7 @@
 : ${WALLTIME:='96:00:00'}  
 
 # general settings 
-: ${VERSION:=`basename $SETUPROOT`}    
+: ${VERSION:=`basename $SETUPROOT`}
 : ${CASESROOT:=$SETUPROOT/../../cases/$VERSION}
 : ${CCSMROOT:=$SETUPROOT/../../model/$VERSION}
 : ${COMPSET:=N20TREXTAERCNOCCMIP6}
@@ -33,7 +38,7 @@
 : ${VERBOSE:=1} # set -vx option in all scripts
 
 # assimilation settings
-: ${ENKF_VERSION:=1} # unset/empty=no assimilation  1=WCDA without sea ice update  2=SCDA with sea ice update 
+: ${ENKF_VERSION:=2} # unset/empty=no assimilation  1=WCDA without sea ice update  2=SCDA with sea ice update 
 : ${ENKFROOT:=$SETUPROOT/../../assim/$VERSION}
 : ${ENKF_CODE:=$ENKFROOT/EnKF_i$ENKF_VERSION}
 : ${ENSAVE_FIXENKF_CODE:=$ENKFROOT/ensave_fixenkf}
@@ -42,10 +47,9 @@
 : ${ENSAVE:=1} # diagnose ensemble averages
 : ${SKIPASSIM:=0} # skip first assimilation update ; will be forced to 1 at experiment start   
 : ${RFACTOR_START:=8} # inflation factor at experiment start 
-: ${COMPENSATE_ICE_FRESHWATER:=0} # only for use together with sea ice update
+: ${COMPENSATE_ICE_FRESHWATER:=1} # only for use together with sea ice update
 : ${ENKF_NTASKS:=128}
 : ${MICOM_INIT_NTASKS_PER_MEMBER:=16}
-: ${ENKFROOT:=$SETUPROOT/../../assim/norcpm1} 
 : ${OCNGRIDFILE:=$INPUTDATA/ocn/micom/gx1v6/20101119/grid.nc}
   OBSLIST=(${OBSLIST:='TEM SAL SST'})
   PRODUCERLIST=(${PRODUCERLIST:='EN421 EN421 HADISST2'})

@@ -45,7 +45,6 @@
 : ${COMPENSATE_ICE_FRESHWATER:=0} # only for use together with sea ice update
 : ${ENKF_NTASKS:=128}
 : ${MICOM_INIT_NTASKS_PER_MEMBER:=16}
-: ${ENKFROOT:=$SETUPROOT/../../assim/norcpm1} 
 : ${OCNGRIDFILE:=$INPUTDATA/ocn/micom/gx1v6/20101119/grid.nc}
   OBSLIST=(${OBSLIST:='TEM SAL SST'})
   PRODUCERLIST=(${PRODUCERLIST:='EN421 EN421 HADISST2'})
