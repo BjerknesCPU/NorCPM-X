@@ -112,7 +112,16 @@ do
         PRODUCER=${PRODUCERLIST[$iobs]}
         REF_PERIOD=${REF_PERIODLIST[$iobs]}
         COMB_ASSIM=${COMBINE_ASSIM[$iobs]}    #sequential/joint observation assim 
-        ln -sf ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc . || { echo "${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc missing, we quit" ; exit 1 ; }
+        if [ -e ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc ]
+        then  
+          ln -sf ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc .
+        elif [ -e ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}_pre.nc ]
+        then 
+          ln -sf ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}_pre.nc ${yr}_${mm}.nc
+        else
+          echo "${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc missing, we quit" ; exit 1
+        fi
+        if [ ! -e ${INPUTDATA}/obs/${OBSTYPE}/${PRODUCER}/${yr}_${mm}.nc ]
         ln -sf ${INPUTDATA}/enkf/${RES}/${VERSION}/Free-average${mm}-${REF_PERIOD}.nc mean_mod.nc || { echo "Error ${INPUTDATA}/enkf/${RES}/Free-average${mm}-${REF_PERIOD}.nc missing, we quit" ; exit 1 ; }
         if [ -f ${INPUTDATA}/enkf/${RES}/${PRODUCER}/${RES}_${OBSTYPE}_obs_unc_anom.nc ]
         then

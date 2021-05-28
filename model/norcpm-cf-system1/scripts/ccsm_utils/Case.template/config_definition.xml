@@ -1612,6 +1612,15 @@ inside strings.
  ldesc="Optional input of riverine nutrients.  Requires module ecosys"
 ></entry>
 
+<entry id="MICOM_DIAG_FLAG" 
+ type="integer"
+ valid_values="0,1" 
+ value="0" 
+ group="build_micom"
+ sdesc="Choice of diagnostic MICOM output."
+ ldesc="Choice of diagnostic MICOM output: 0=standard, 1=minimal CF"
+></entry>
+
 <entry id="BUILD_COMPLETE" 
  type="logical"
  valid_values="TRUE,FALSE"  

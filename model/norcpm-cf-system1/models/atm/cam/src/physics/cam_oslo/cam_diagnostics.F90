@@ -809,6 +809,7 @@ subroutine diag_init
    call addfld ('PRECC   ','m/s     ',1,    'A','Convective precipitation rate (liq + ice)'                          ,phys_decomp)
    call addfld ('PRECT   ','m/s     ',1,    'A','Total (convective and large-scale) precipitation rate (liq + ice)'  ,phys_decomp)
    call addfld ('PRECTMX ','m/s     ',1,    'X','Maximum (convective and large-scale) precipitation rate (liq+ice)'  ,phys_decomp)
+   call addfld ('PRECS   ','m/s     ',1,    'A','Snow rate (water equivalent)'                                       ,phys_decomp)
    call addfld ('PRECSL  ','m/s     ',1,    'A','Large-scale (stable) snow rate (water equivalent)'                  ,phys_decomp)
    call addfld ('PRECSC  ','m/s     ',1,    'A','Convective snow rate (water equivalent)'                            ,phys_decomp)
    call addfld ('PRECCav ','m/s     ',1,    'A','Average large-scale precipitation (liq + ice)'                      ,phys_decomp)
@@ -819,8 +820,9 @@ subroutine diag_init
    call add_default ('PRECL   ', 1, ' ')
    call add_default ('PRECC   ', 1, ' ')
    call add_default ('PRECT   ', 1, ' ')
-   call add_default ('PRECSL  ', 1, ' ')
-   call add_default ('PRECSC  ', 1, ' ')
+   call add_default ('PRECS   ', 1, ' ')
+   !call add_default ('PRECSL  ', 1, ' ')
+   !call add_default ('PRECSC  ', 1, ' ')
 
    ! outfld calls in diag_surf
 
@@ -1622,6 +1624,7 @@ subroutine diag_conv(state, ztodt,   &
 
    call outfld('PRECC   ', precc, pcols, lchnk )
    call outfld('PRECL   ', precl, pcols, lchnk )
+   call outfld('PRECS   ', snowc+snowl, pcols, lchnk )
    call outfld('PRECSC  ', snowc, pcols, lchnk )
    call outfld('PRECSL  ', snowl, pcols, lchnk )
    call outfld('PRECT   ', prect, pcols, lchnk )

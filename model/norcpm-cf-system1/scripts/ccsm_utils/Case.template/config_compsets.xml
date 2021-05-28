@@ -2643,6 +2643,23 @@ for 1850 spinup of CN (Carbon Nitrogen) biogeochemistry, CO2 level and Aerosol d
          BFBFLAG="TRUE"
          MICOM_TRACER_MODULES="iage" />
 
+<compset NAME="N_1850-2100_AEROSLO_CN1" SHORTNAME="N20TREXTAERCN1"
+         DESC="NorESM, all active components, 1850 to 2100 transient, cam-oslo meteorology, with CN (Carbon Nitrogen) in CLM"
+         COMP_ATM="cam" COMP_LND="clm" COMP_ICE="cice" COMP_OCN="micom" COMP_GLC="sglc"
+         CCSM_CCOST="0"
+         CCSM_BGC="CO2A"
+         CLM_CONFIG_OPTS="-bgc cn"
+         CLM_CO2_TYPE="diagnostic"
+         CLM_NML_USE_CASE="1850-2100_rcp8.5_noresmDiagOpt1_transient" 
+         CAM_NML_USE_CASE="noresmDiagOpt1_1850-2100_cam4"
+         MICOM_DIAG_FLAG="1"
+         CAM_CONFIG_OPTS="-phys cam4 -cam_oslo aer1850online -scen_rcp rcp85"
+         CICE_NAMELIST_OPTS="update_ocn_f=.true. r_snw=0.0"
+         RUN_STARTDATE="1850-01-01"
+         BUDGETS="TRUE"
+         BFBFLAG="TRUE"
+         MICOM_TRACER_MODULES="iage" />
+
 <compset NAME="N_1850-2100_AEROSLO_CN" SHORTNAME="N20TREXTAERCN" GRID_MATCH="T31_g37"
          CICE_NAMELIST_OPTS="update_ocn_f=.true."
          ATM_NCPL="72" />

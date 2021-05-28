@@ -1793,18 +1793,13 @@ c --- zlevel
           call ncattr('long_name','Latitude')
           call ncattr('standard_name','latitude')
           call ncattr('units','degree_north')
-        endif 
-        if (MSC_MMFLXL(iogrp)+MSC_MMFLXD(iogrp)+MSC_MMFTDL(iogrp)
-     .     +MSC_MMFTDD(iogrp).ne.0) then
           region_name(1)='atlantic_arctic_ocean'
           region_name(2)='indian_pacific_ocean'
           region_name(3)='global_ocean'
           call ncwrtc('region','slenmax region',region_name)  
           call ncattr('long_name','Region name') 
-        endif
-        if (MSC_MHFLX(iogrp)+MSC_MHFTD(iogrp)+MSC_MHFLD(iogrp)
-     .     +MSC_MSFLX(iogrp)+MSC_MSFTD(iogrp)+MSC_MSFLD(iogrp).ne.0)
-     .  then 
+        endif 
+        if (MSC_VOLTR(iogrp).ne.0) then 
           call ncwrtc('section','slenmax section',sec_name)
           call ncattr('long_name','Section name') 
         endif 
