@@ -1,7 +1,8 @@
-# NorCPM-X
+# NorCPM-CF
 
-A re-designed, open-source code structure for NorCPM
+A re-designed, open-source code structure for NorCPM to be used in Climate Futures. 
 
+General structure:
 - assim 
     - system 1 
         - assimilation code 
