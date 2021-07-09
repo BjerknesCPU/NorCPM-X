@@ -1,44 +1,45 @@
 # EXPERIMENT DEFAULT SETTINGS 
 # DO NOT CHANGE, USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
-# EXPERIMENT DESCRIPTION
-#
-# i2 reanalysis with freshwater compensation for DA-related sea ice changes   
-# applied to mixed layer
-
 # experiment settings
-: ${CASE_PREFIX:=`basename $1 .sh`} # case prefix, not including _YYYYMMDD_XX suffix ; extracted from name of this file
-: ${REST_PREFIX:=NorESM1-ME_historicalExt_noAssim_19800101_mem} 
-: ${REST_PATH_REMOTE:=}
-: ${REST_PATH_LOCAL:=/cluster/work/users/ingo/archive/NorESM1-ME_historicalExt_noAssim_19800101}
-: ${START_YEARS:=1981} # multiple start dates only for prediction
-: ${START_MONTHS:=11} # multiple start dates only for prediction
-: ${START_DAYS:=15} # multiple start dates only for prediction
-: ${REF_YEARS:=1981} # multiple reference dates only for RUN_TYPE=hybrid
-: ${REF_MONTHS:=11} # multiple reference dates only for RUN_TYPE=hybrid
-: ${REF_DAYS:=15} # multiple reference dates only for RUN_TYPE=hybrid
-: ${REF_ENSEMBLE:=1} # set to 1 if ensemble of perturbed intial conditions with same start date, only for RUN_TYPE=hybrid
-: ${REF_MEMBER1:=01}
-: ${RUN_TYPE:=branch} # use "branch" if unspecified 
-: ${ENSSIZE:=60} # number of members 
+: ${EXPERIMENT:=norcpm-cf-system1_hindcast} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=01} # first member  
+: ${ENSSIZE:=60} # number of members 
+: ${COMPSET:=N20TREXTAERCN1}
+: ${RES:=f19_g16}
+: ${START_YEARS:="`seq -w 1998 2001`"} # multiple start dates only for prediction
+: ${START_MONTHS:="`seq -w 01 12`"} # multiple start dates only for prediction
+: ${START_DAYS:=15} # multiple start dates only for prediction
+
+# initialisation settings
+: ${RUN_TYPE:=branch} # branch: reference ensemble, hybrid: single reference simulation  
+: ${REF_EXPERIMENT:=norcpm-cf-system1_assim_19811115} # name of reference experiment, including start date if necessary
+: ${REF_SUFFIX_MEMBER1:=_mem01} # reference run used to initialise first member for 'branch', all members for 'hybrid' 
+: ${REF_PATH_LOCAL_MEMBER1:=/cluster/work/users/$USER/archive/$REF_EXPERIMENT/${REF_EXPERIMENT}${REF_SUFFIX_MEMBER1}}
+: ${REF_PATH_REMOTE_MEMBER1:=}
+: ${REF_YEARS:=} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_MONTHS:=} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_DAYS:=} # multiple reference dates only for RUN_TYPE=hybrid
+
+# job settings
 : ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
-: ${RESTART:=239} # restart this many times (set to 20 years here) 
-: ${WALLTIME:='24:00:00'}  
+: ${RESTART:=2} # restart this many times (perform assimilation three times before forecast) 
+: ${WALLTIME:='48:00:00'}  
+: ${STOP_OPTION_FORECAST:=ndays} # units for run length specification STOP_N 
+: ${STOP_N_FORECAST:=142} # run continuesly for this length 
+: ${PECOUNT:=T} # T=32, S=64, M=96, L=128, X1=502
+: ${ACCOUNT:=nn9039k}
+: ${MAX_PARALLEL_STARCHIVE:=30} 
 
 # general settings 
-: ${VERSION:=`basename $SETUPROOT`}
+: ${VERSION:=`basename $SETUPROOT`} # e.g. norcpm-cf-system1 
 : ${CASESROOT:=$SETUPROOT/../../cases/$VERSION}
 : ${CCSMROOT:=$SETUPROOT/../../model/$VERSION}
-: ${COMPSET:=N20TREXTAERCN}
-: ${PECOUNT:=S} # T=32, S=64, M=96, L=128, X1=502
-: ${RES:=f19_g16}
-: ${ACCOUNT:=nn9039k}
+: ${SUBMIT_AFTER_SETUP:=0} # auto-submit after setting up experiment  
 : ${ASK_BEFORE_REMOVE:=1} # 1=will ask before removing existing cases 
-: ${MEMBERTAG:=mem} # leave empty or set to 'mem' 
-: ${MAX_PARALLEL_STARCHIVE:=30} 
 : ${VERBOSE:=1} # set -vx option in all scripts
+: ${SKIP_CASE1:=0} # skip creating first/template case, assume it exists already 
 
 # assimilation settings
 : ${ENKF_VERSION:=2} # unset/empty=no assimilation  1=WCDA without sea ice update  2=SCDA with sea ice update 
@@ -59,6 +60,10 @@
   PRODUCERLIST=('EN421 EN421 NOAA')
   REF_PERIODLIST=('1982-2016 1982-2016 1982-2016')
   COMBINE_ASSIM=('0 0 1')
+  OBSLIST_PREFORECAST=('SST')
+  PRODUCERLIST_PREFORCAST=('NOAA')
+  REF_PERIODLIST_PREFORCAST=('1982-2016')
+  COMBINE_ASSIM_PREFORCAST=('1')
 
 # derived settings
 : ${START_YEAR1:=`echo $START_YEARS | cut -d" " -f1`}
@@ -70,4 +75,3 @@
 : ${MEMBERN:=`expr $MEMBER1 + $ENSSIZE - 1`}
 : ${REF_MEMBERN:=`expr $REF_MEMBER1 + $ENSSIZE - 1`}
 : ${SCRIPTSROOT:=$CCSMROOT/scripts}
-: ${ANALYSISROOT:=$WORK/noresm/${CASE_PREFIX}_${START_YEAR1}${START_MONTH1}${START_DAY1}/ANALYSIS}

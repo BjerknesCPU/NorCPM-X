@@ -21,12 +21,12 @@ done
 . $SETUPROOT/settings/setmach.sh
 
 # READING SETTINGS FROM FILE 
-if [ ! $SETUPROOT/settings/`basename $1` ]
+if [ ! $SETUPROOT/settings/`basename $1 .sh`.sh ]
 then
-  echo cannot read settings file $SETUPROOT/settings/`basename $1` 
+  echo cannot read settings file $SETUPROOT/settings/`basename $1 .sh`.sh 
   exit
 fi
-. $SETUPROOT/settings/`basename $1`
+. $SETUPROOT/settings/`basename $1 .sh`.sh
 
 # SET VERBOSITY
 if (( $VERBOSE ))

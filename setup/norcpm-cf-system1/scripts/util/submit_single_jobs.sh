@@ -1,11 +1,11 @@
 #!/bin/sh -evx
 
 SETUPROOT=`readlink -f \`dirname $0\``
-if [[ `basename $SETUPROOT` == "scripts" ]]
+if [[ `basename $SETUPROOT` == "core" || `basename $SETUPROOT` == "util" ]]
 then
-  SETUPROOT=`dirname $SETUPROOT`
+  SETUPROOT=`dirname \`dirname $SETUPROOT\``
 fi
-. $SETUPROOT/scripts/source_settings.sh $*
+. $SETUPROOT/scripts/core/source_settings.sh $*
 
 echo PROPAGATE INDIVIDUAL ENSEMBLE MEMBERS AS SEPARATE JOBS
 

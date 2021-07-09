@@ -121,13 +121,13 @@ set ${CASE}.clm?.rh3.*;      latest=`ls -rt $* 2>  /dev/null | tail -1`; mv $lat
 set ${CASE}.clm?.rh4.*;      latest=`ls -rt $* 2>  /dev/null | tail -1`; mv $latest ${sta}/rest/${dname} 2>  /dev/null; dispose ifiles_y ${sta}/lnd/rest $*
 set ${CASE}.clm?.rh5.*;      latest=`ls -rt $* 2>  /dev/null | tail -1`; mv $latest ${sta}/rest/${dname} 2>  /dev/null; dispose ifiles_y ${sta}/lnd/rest $*
 
-set ${CASE}.clm?.h0.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
-set ${CASE}.clm?.h1.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
-set ${CASE}.clm?.h2.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
-set ${CASE}.clm?.h3.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
-set ${CASE}.clm?.h4.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
-set ${CASE}.clm?.h5.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
-set ${CASE}.clm?.hv.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; ln -f $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.h0.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.h1.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.h2.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.h3.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.h4.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.h5.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
+set ${CASE}.clm?.hv.*;       latest=`ls -rt $* 2> /dev/null | tail -1`; $CP $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_n ${sta}/lnd/hist $*
 set ${CASE}.clm?.i.*;                                                                                                 dispose ifiles_y ${sta}/lnd/init $*
 
 set ${CASE}.cice.r.[0-9]*;   latest=`head -1 ${sta}/rest/${dname}/rpointer.ice`; mv $latest ${sta}/rest/${dname} 2> /dev/null; dispose ifiles_y ${sta}/ice/rest $*

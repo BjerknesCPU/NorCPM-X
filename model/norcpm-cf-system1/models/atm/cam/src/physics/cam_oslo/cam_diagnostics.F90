@@ -168,12 +168,17 @@ subroutine diag_init
    call constituent_burden_init
 
    call addfld ('Z3      ','m       ',pver, 'A','Geopotential Height (above sea level)',phys_decomp)
+   call addfld ('Z925    ','m       ',1,    'A','Geopotential Z at 925 mbar pressure surface',phys_decomp)
+   call addfld ('Z850    ','m       ',1,    'A','Geopotential Z at 850 mbar pressure surface',phys_decomp)
    call addfld ('Z700    ','m       ',1,    'A','Geopotential Z at 700 mbar pressure surface',phys_decomp)
    call addfld ('Z500    ','m       ',1,    'A','Geopotential Z at 500 mbar pressure surface',phys_decomp)
+   call addfld ('Z400    ','m       ',1,    'A','Geopotential Z at 400 mbar pressure surface',phys_decomp)
    call addfld ('Z300    ','m       ',1,    'A','Geopotential Z at 300 mbar pressure surface',phys_decomp)
    call addfld ('Z200    ','m       ',1,    'A','Geopotential Z at 200 mbar pressure surface',phys_decomp)
    call addfld ('Z100    ','m       ',1,    'A','Geopotential Z at 100 mbar pressure surface',phys_decomp)
    call addfld ('Z050    ','m       ',1,    'A','Geopotential Z at 50 mbar pressure surface',phys_decomp)
+   call addfld ('Z030    ','m       ',1,    'A','Geopotential Z at 30 mbar pressure surface',phys_decomp)
+   call addfld ('Z010    ','m       ',1,    'A','Geopotential Z at 10 mbar pressure surface',phys_decomp)
 
    call addfld ('ZZ      ','m2      ',pver, 'A','Eddy height variance' ,phys_decomp)
    call addfld ('VZ      ','m2/s    ',pver, 'A','Meridional transport of geopotential energy',phys_decomp)
@@ -203,18 +208,54 @@ subroutine diag_init
    call addfld ('RHCFMIP','percent ' ,pver, 'A','Relative humidity with respect to water above 273 K, ice below 273 K',phys_decomp)
    call addfld ('PSL     ','Pa      ',1,    'A','Sea level pressure',phys_decomp)
 
+   call addfld ('T1000      ','K     ',1,   'A','Temperature at 1000 mbar pressure surface',phys_decomp)
+   call addfld ('T925    ','K       ',1,    'A','Temperature at 925 mbar pressure surface',phys_decomp)
    call addfld ('T850    ','K       ',1,    'A','Temperature at 850 mbar pressure surface',phys_decomp)
+   call addfld ('T700    ','K       ',1,    'A','Temperature at 700 mbar pressure surface',phys_decomp)
    call addfld ('T500    ','K       ',1,    'A','Temperature at 500 mbar pressure surface',phys_decomp)
+   call addfld ('T400    ','K       ',1,    'A','Temperature at 400 mbar pressure surface',phys_decomp)
    call addfld ('T300    ','K       ',1,    'A','Temperature at 300 mbar pressure surface',phys_decomp)
    call addfld ('T200    ','K       ',1,    'A','Temperature at 200 mbar pressure surface',phys_decomp)
+   call addfld ('T100    ','K       ',1,    'A','Temperature at 100 mbar pressure surface',phys_decomp)
+   call addfld ('T050    ','K       ',1,    'A','Temperature at 50 mbar pressure surface',phys_decomp)
+   call addfld ('T030    ','K       ',1,    'A','Temperature at 30 mbar pressure surface',phys_decomp)
+   call addfld ('T010    ','K       ',1,    'A','Temperature at 10 mbar pressure surface',phys_decomp)
+   call addfld ('Q1000      ','kg/kg ',1,   'A','Specific Humidity at 1000 mbar pressure surface',phys_decomp)   
+   call addfld ('Q925    ','kg/kg   ',1,    'A','Specific Humidity at 925 mbar pressure surface',phys_decomp)
    call addfld ('Q850    ','kg/kg   ',1,    'A','Specific Humidity at 850 mbar pressure surface',phys_decomp)
-   call addfld ('Q200    ','kg/kg   ',1,    'A','Specific Humidity at 700 mbar pressure surface',phys_decomp)
+   call addfld ('Q700    ','kg/kg   ',1,    'A','Specific Humidity at 700 mbar pressure surface',phys_decomp)
+   call addfld ('Q500    ','kg/kg   ',1,    'A','Specific Humidity at 500 mbar pressure surface',phys_decomp)
+   call addfld ('Q400    ','kg/kg   ',1,    'A','Specific Humidity at 400 mbar pressure surface',phys_decomp)
+   call addfld ('Q300    ','kg/kg   ',1,    'A','Specific Humidity at 300 mbar pressure surface',phys_decomp)
+   call addfld ('Q200    ','kg/kg   ',1,    'A','Specific Humidity at 200 mbar pressure surface',phys_decomp)
+   call addfld ('Q100    ','kg/kg   ',1,    'A','Specific Humidity at 100 mbar pressure surface',phys_decomp)
+   call addfld ('Q050    ','kg/kg   ',1,    'A','Specific Humidity at 50 mbar pressure surface',phys_decomp)
+   call addfld ('Q030    ','kg/kg   ',1,    'A','Specific Humidity at 30 mbar pressure surface',phys_decomp)
+   call addfld ('Q010    ','kg/kg   ',1,    'A','Specific Humidity at 10 mbar pressure surface',phys_decomp)
+   call addfld ('U925    ','m/s     ',1,    'A','Zonal wind at 925 mbar pressure surface',phys_decomp)
    call addfld ('U850    ','m/s     ',1,    'A','Zonal wind at 850 mbar pressure surface',phys_decomp)
-   call addfld ('U200    ','m/s     ',1,    'A','Zonal wind at 200 mbar pressure surface',phys_decomp)
+   call addfld ('U700    ','m/s     ',1,    'A','Zonal wind at 700 mbar pressure surface',phys_decomp)
+   call addfld ('U500    ','m/s     ',1,    'A','Zonal wind at 500 mbar pressure surface',phys_decomp)
+   call addfld ('U400    ','m/s     ',1,    'A','Zonal wind at 400 mbar pressure surface',phys_decomp)
+   call addfld ('U300    ','m/s     ',1,    'A','Zonal wind at 300 mbar pressure surface',phys_decomp)
    call addfld ('U250    ','m/s     ',1,    'A','Zonal wind at 250 mbar pressure surface',phys_decomp)
+   call addfld ('U200    ','m/s     ',1,    'A','Zonal wind at 200 mbar pressure surface',phys_decomp)
+   call addfld ('U100    ','m/s     ',1,    'A','Zonal wind at 100 mbar pressure surface',phys_decomp)
+   call addfld ('U050    ','m/s     ',1,    'A','Zonal wind at 50 mbar pressure surface',phys_decomp)
+   call addfld ('U030    ','m/s     ',1,    'A','Zonal wind at 30 mbar pressure surface',phys_decomp)
+   call addfld ('U010    ','m/s     ',1,    'A','Zonal wind at 10 mbar pressure surface',phys_decomp)
+   call addfld ('V925    ','m/s     ',1,    'A','Meridional wind at 925 mbar pressure surface',phys_decomp)
    call addfld ('V850    ','m/s     ',1,    'A','Meridional wind at 850 mbar pressure surface',phys_decomp)
-   call addfld ('V200    ','m/s     ',1,    'A','Meridional wind at 200 mbar pressure surface',phys_decomp)
+   call addfld ('V700    ','m/s     ',1,    'A','Meridional wind at 700 mbar pressure surface',phys_decomp)
+   call addfld ('V500    ','m/s     ',1,    'A','Meridional wind at 500 mbar pressure surface',phys_decomp)
+   call addfld ('V400    ','m/s     ',1,    'A','Meridional wind at 400 mbar pressure surface',phys_decomp)
+   call addfld ('V300    ','m/s     ',1,    'A','Meridional wind at 300 mbar pressure surface',phys_decomp)
    call addfld ('V250    ','m/s     ',1,    'A','Meridional wind at 250 mbar pressure surface',phys_decomp)
+   call addfld ('V200    ','m/s     ',1,    'A','Meridional wind at 200 mbar pressure surface',phys_decomp)
+   call addfld ('V100    ','m/s     ',1,    'A','Meridional wind at 100 mbar pressure surface',phys_decomp)
+   call addfld ('V050    ','m/s     ',1,    'A','Meridional wind at 50 mbar pressure surface',phys_decomp)
+   call addfld ('V030    ','m/s     ',1,    'A','Meridional wind at 30 mbar pressure surface',phys_decomp)
+   call addfld ('V010    ','m/s     ',1,    'A','Meridional wind at 10 mbar pressure surface',phys_decomp)
 
    call addfld ('TT      ','K2      ',pver, 'A','Eddy temperature variance' ,phys_decomp)
 
@@ -225,11 +266,6 @@ subroutine diag_init
 
    call addfld ('ATMEINT  ','J/m2    ',1, 'A','Vertically integrated total atmospheric energy ',phys_decomp)
 
-   call addfld ('T1000      ','K     ',1,   'A','Temperature at 1000 mbar pressure surface',phys_decomp)
-   call addfld ('T925       ','K     ',1,   'A','Temperature at 925 mbar pressure surface',phys_decomp)   
-   call addfld ('T700       ','K     ',1,   'A','Temperature at 700 mbar pressure surface',phys_decomp)
-   call addfld ('Q1000      ','kg/kg ',1,   'A','Specific Humidity at 1000 mbar pressure surface',phys_decomp)   
-   call addfld ('Q925       ','kg/kg ',1,   'A','Specific Humidity at 925 mbar pressure surface',phys_decomp)
 
    call addfld ('T7001000   ','K     ',1,   'A','Temperature difference 700 mb - 1000 mb',phys_decomp)
    call addfld ('TH7001000  ','K     ',1,   'A','Theta difference 700 mb - 1000 mb',phys_decomp)
@@ -1202,6 +1238,14 @@ end subroutine diag_conv_tend_ini
 !           
 ! Output Z3 on pressure surfaces
 !
+    if (hist_fld_active('Z925')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, z3, p_surf)
+       call outfld('Z925    ', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('Z850')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, z3, p_surf)
+       call outfld('Z850    ', p_surf, pcols, lchnk)
+    end if
     if (hist_fld_active('Z700')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, z3, p_surf)
        call outfld('Z700    ', p_surf, pcols, lchnk)
@@ -1209,6 +1253,10 @@ end subroutine diag_conv_tend_ini
     if (hist_fld_active('Z500')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, z3, p_surf)
        call outfld('Z500    ', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('Z400')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 40000._r8, z3, p_surf)
+       call outfld('Z400    ', p_surf, pcols, lchnk)
     end if
     if (hist_fld_active('Z300')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 30000._r8, z3, p_surf)
@@ -1225,6 +1273,14 @@ end subroutine diag_conv_tend_ini
     if (hist_fld_active('Z050')) then
        call vertinterp(ncol, pcols, pver, state%pmid,  5000._r8, z3, p_surf)
        call outfld('Z050    ', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('Z030')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  3000._r8, z3, p_surf)
+       call outfld('Z030    ', p_surf, pcols, lchnk)
+    end if
+    if (hist_fld_active('Z010')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  1000._r8, z3, p_surf)
+       call outfld('Z010    ', p_surf, pcols, lchnk)
     end if
 !
 ! Quadratic height fiels Z3*Z3
@@ -1369,9 +1425,17 @@ end subroutine diag_conv_tend_ini
        call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%t, p_surf)
        call outfld('T850    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('T700')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%t, p_surf)
+       call outfld('T700    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('T500')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%t, p_surf)
        call outfld('T500    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('T400')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 40000._r8, state%t, p_surf)
+       call outfld('T400    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('T300')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 30000._r8, state%t, p_surf)
@@ -1381,17 +1445,85 @@ end subroutine diag_conv_tend_ini
        call vertinterp(ncol, pcols, pver, state%pmid, 20000._r8, state%t, p_surf)
        call outfld('T200    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('T100')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%t, p_surf)
+       call outfld('T100    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('T050')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  5000._r8, state%t, p_surf)
+       call outfld('T050    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('T030')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  3000._r8, state%t, p_surf)
+       call outfld('T030    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('T010')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  1000._r8, state%t, p_surf)
+       call outfld('T010    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('Q850')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%q(1,1,1), p_surf)
        call outfld('Q850    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q700')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q700    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q500')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q500    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q400')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 40000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q400    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q300')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 30000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q300    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('Q200')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 20000._r8, state%q(1,1,1), p_surf)
        call outfld('Q200    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('Q100')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q100    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q050')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  5000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q050    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q030')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  3000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q030    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('Q010')) then
+       call vertinterp(ncol, pcols, pver, state%pmid,  1000._r8, state%q(1,1,1), p_surf)
+       call outfld('Q010    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U925')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%u, p_surf)
+       call outfld('U925    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('U850')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%u, p_surf)
        call outfld('U850    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U700')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%u, p_surf)
+       call outfld('U700    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U500')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%u, p_surf)
+       call outfld('U500    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U400')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 40000._r8, state%u, p_surf)
+       call outfld('U400    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U300')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 30000._r8, state%u, p_surf)
+       call outfld('U300    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('U250')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 25000._r8, state%u, p_surf)
@@ -1401,9 +1533,45 @@ end subroutine diag_conv_tend_ini
        call vertinterp(ncol, pcols, pver, state%pmid, 20000._r8, state%u, p_surf)
        call outfld('U200    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('U100')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%u, p_surf)
+       call outfld('U100    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U050')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 5000._r8, state%u, p_surf)
+       call outfld('U050    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U030')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 3000._r8, state%u, p_surf)
+       call outfld('U030    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U010')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 1000._r8, state%u, p_surf)
+       call outfld('U010    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V925')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%v, p_surf)
+       call outfld('V925    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('V850')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%v, p_surf)
        call outfld('V850    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V700')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 70000._r8, state%v, p_surf)
+       call outfld('V700    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V500')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 50000._r8, state%v, p_surf)
+       call outfld('V500    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V400')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 40000._r8, state%v, p_surf)
+       call outfld('V400    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V300')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 30000._r8, state%v, p_surf)
+       call outfld('V300    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('V250')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 25000._r8, state%v, p_surf)
@@ -1412,6 +1580,22 @@ end subroutine diag_conv_tend_ini
     if (hist_fld_active('V200')) then
        call vertinterp(ncol, pcols, pver, state%pmid, 20000._r8, state%v, p_surf)
        call outfld('V200    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V100')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 10000._r8, state%v, p_surf)
+       call outfld('V100    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V050')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 5000._r8, state%v, p_surf)
+       call outfld('V050    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V030')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 3000._r8, state%v, p_surf)
+       call outfld('V030    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V010')) then
+       call vertinterp(ncol, pcols, pver, state%pmid, 1000._r8, state%v, p_surf)
+       call outfld('V010    ', p_surf, pcols, lchnk )
     end if
 
     ftem(:ncol,:) = state%t(:ncol,:)*state%t(:ncol,:)

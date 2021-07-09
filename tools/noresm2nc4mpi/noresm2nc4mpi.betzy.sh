@@ -3,22 +3,24 @@
 source /cluster/installations/lmod/lmod/init/sh
 module --quiet restore system
 module load StdEnv
-module load netCDF/4.7.4-iompi-2020b
-module load iompi/2020b     
+module load netCDF/4.7.4-iompi-2020a
+module load NCO/4.9.5-iompi-2020a
+module load iompi/2020a    
 
 ### CUSTOMIZE BEGIN ###
+CASEDIR=$1
 ACCOUNT=nn9039k
 WALLTIME=24:00:00 
 NTASKS=64 ; NODES=4
-ZIPRES=1 # 1=zip restart files
+ZIPRES=0 # 1=gzip restart files
 RMLOGS=1 # 1=remove log files 
-COMPLEVEL=9
-NCCOPY=$EBROOTNETCDF/bin/nccopy
-NCDUMP=$EBROOTNETCDF/bin/ncdump
+COMPLEVEL=5
+#NCCOPY="$EBROOTNETCDF/bin/nccopy -7 -s -d $COMPLEVEL"
+NCCOPY="$EBROOTNCO/bin/ncks -7 --cnk_dmn kk,1 --cnk_dmn kk2,1 --cnk_dmn plev,1 --cnk_dmn k2,1 --cnk_dmn k3,1 -L $COMPLEVEL" 
 GZIP=`which gzip` 
 TEMPDIR=/cluster/work/users/$USER/`basename $0 .sh`
-CASEDIR=$1
 ### CUSTOMIZE END ###
+
 
 # check input argument and print help blurb if check fails
 if [[ ! $1 || $1 == "-h" || $1 == "--help" ]]
@@ -60,7 +62,7 @@ int main(int argc, char *argv[])
         int rank, result, i; char s[1024]; 
         MPI_Init(&argc, &argv);
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-        strcpy(s,"${TEMPDIR}/nccopy -k 4 -s -d ${COMPLEVEL} ");      
+        strcpy(s,"${NCCOPY} ");      
         for ( i = 0; i < argc-1; i++ ) {
           if (rank == i) {
             strcat(s,argv[i+1]);
@@ -96,7 +98,7 @@ int main(int argc, char *argv[])
         int rank, result, i; char s[1024]; 
         MPI_Init(&argc, &argv);
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-        strcpy(s,"${TEMPDIR}/gzip ");      
+        strcpy(s,"${GZIP} ");      
         for ( i = 0; i < argc-1; i++ ) {
           if (rank == i) {
             strcat(s,argv[i+1]);
@@ -110,17 +112,6 @@ EOF
 mpicc -o zip zip.c
 rm zip.c
 fi
-
-# copy other executables 
-if [ ! -e nccopy ] ; then 
-  cp $NCCOPY nccopy 
-fi 
-if [ ! -e ncdump ] ; then 
-  cp $NCDUMP ncdump  
-fi 
-if [ ! -e gzip ] ; then 
-  cp $GZIP gzip 
-fi 
 
 # create PBS script and submit  
 LID="`date +%y%m%d-%H%M%S`"
@@ -144,7 +135,7 @@ cd ${CASEDIR}
 # do history files 
 ARGS=' ' 
 for ncfile in \`find . -wholename '*/hist/*.nc' -print\`; do
-  if [ \`${NCDUMP} -k \${ncfile} | grep 'netCDF-4' | wc -l\` -eq 0 ] ; then
+  if [ \`ncdump -k \${ncfile} | grep 'netCDF-4' | wc -l\` -eq 0 ] ; then
     ARGS=\${ARGS}' '\${ncfile} 
     if [ \`echo \${ARGS} | wc -w\` -eq ${NTASKS} ] ; then 
       mpirun -n ${NTASKS} ${TEMPDIR}/convert \${ARGS}
@@ -158,18 +149,24 @@ fi
 
 # do restart files 
 if [ ${ZIPRES} == 1 ] ; then 
-  ARGS=' '
-  for ncfile in \`find . -wholename '*/rest/*.nc' -print\`; do
-    ARGS=\${ARGS}' '\${ncfile} 
-    if [ \`echo \${ARGS} | wc -w\` -eq ${NTASKS} ] ; then 
-      mpirun -n ${NTASKS} ${TEMPDIR}/zip \${ARGS}
-      ARGS=' '
-    fi 
-  done 
-  if [ \`echo \${ARGS} | wc -w\` -gt 0 ] ; then 
-    mpirun -n ${NTASKS} ${TEMPDIR}/zip \${ARGS}
-  fi
+  CMD=${TEMPDIR}/zip
+else
+  CMD=${TEMPDIR}/convert
 fi 
+ARGS=' '
+for ncfile in \`find . -wholename '*/rest/*.nc' -print\`; do
+  if [[ ! $ncfile =~ .*.clm2.r..* ]]
+  then
+    ARGS=\${ARGS}' '\${ncfile}
+  fi 
+  if [ \`echo \${ARGS} | wc -w\` -eq ${NTASKS} ] ; then 
+    mpirun -n ${NTASKS} \${CMD} \${ARGS}
+    ARGS=' '
+  fi 
+done 
+if [ \`echo \${ARGS} | wc -w\` -gt 0 ] ; then 
+  mpirun -n ${NTASKS} \${CMD} \${ARGS}
+fi
 for gzfile in \`find . -wholename '*/rest/*.gz' -print\`; do
   file \${gzfile} > /dev/null
 done

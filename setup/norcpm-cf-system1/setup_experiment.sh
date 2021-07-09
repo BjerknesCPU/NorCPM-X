@@ -1,1 +1,1 @@
-scripts/setup_experiment.sh
+scripts/core/setup_experiment.sh

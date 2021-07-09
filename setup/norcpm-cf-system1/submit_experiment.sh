@@ -1,1 +1,1 @@
-scripts/submit_experiment.sh
+scripts/core/submit_experiment.sh
